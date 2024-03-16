@@ -42,6 +42,9 @@ class App {
         // !! 对话缓存，默认使用文件缓存系统，如需使用redis或者memcached之类，请在下方自行修改 !!
         self::$cache = require __DIR__ . '/cache.php';
         // ======== 对话缓存 ========
+
+        if (!DEV_MODE)
+            ini_set('display_errors', '0');
     }
 
     public function run() {
@@ -98,13 +101,12 @@ class App {
             self::$instance->server
                         ->serve()
                         ->send();
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             self::errorLog($e, '服务异常');
-            return '服务异常~';
         }
     }
 
-    public static function errorLog(Exception $e, $descript = '') {
+    public static function errorLog(Throwable $e, $descript = '') {
         $errorMsg = '【异常：' . $e->getCode() . '】' . ($descript === ''? '' : ($descript . '：')) . $e->getMessage() . '<' . $e->getFile() . ',' . $e->getLine() . '>';
         self::$instance->logger
                     ->error($errorMsg);

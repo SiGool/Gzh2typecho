@@ -14,7 +14,10 @@ $loader->addPsr4('Typecho\\', __DIR__ . '/../../../../var/Typecho');
 $loader->register();
 
 set_time_limit(0);
+
+## 页面是否显示错误 ##
 ini_set('display_errors', 0);
+######
 
 define('ERROR_LOG_PATH', __DIR__ . '/logs/post.log');
 define('TOKEN_QY_STR_NAME_ON_PUB_LINK', 'token');
@@ -51,7 +54,7 @@ define('SECRET_LV_OPTIONS', [
 
 $logger = new \Monolog\Logger('post-server');
 $logger->pushHandler(new \Monolog\Handler\StreamHandler(ERROR_LOG_PATH, \Monolog\Logger::ERROR));
-function errorLog(Exception $e, $descript = '') {
+function errorLog(Throwable $e, $descript = '') {
     global $logger;
     $errorMsg = '【异常：' . $e->getCode() . '】' . ($descript === ''? '' : ($descript . '：')) . $e->getMessage() . '<' . $e->getFile() . ',' . $e->getLine() . '>';
     $logger->error($errorMsg);
@@ -325,7 +328,7 @@ function run() {
         }
 
         exit('[📢 Gzh2typecho 🎉]：发布成功 o(^▽^)o');
-    } catch (Exception $e) {
+    } catch (Throwable $e) {
         errorLog($e);
         $errExit('发布失败！', true);
     }
@@ -333,7 +336,7 @@ function run() {
 
 try {
     run();
-} catch (Exception $e) {
+} catch (Throwable $e) {
     errorLog($e);
     echo '[📢 Gzh2typecho内部服务]：发布失败！服务异常！';
 }

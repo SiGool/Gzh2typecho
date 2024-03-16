@@ -52,7 +52,10 @@
    - 填写完后提交，成功会弹出提示并且跳转回上一个页面，右边会显示红色的停用（！！！这里一定要出现红色的停用，不然是芝麻开门没对上的，后面怎么折腾都没用，这步含金量很高！！！），这时候你就成功50%了
      ![](https://gitee.com/sigool/sg-img-services01/raw/master/verfiy_server_for_wx_success.png)   
 
-7. 登录Typecho后台，到插件管理启用本插件，启用后在最右边操作列点击设置，对本插件进行配置：
+7. 配置完服务器配置，上方还有一栏 IP白名单，我们需要加入当前代码所在PC或者服务器的IP，否则文章内容无法使用图片和视频。
+    如果你想了三天都没想明白IP是啥，你可以等环境搭建完成后参照下方测试发布文章，文章内容带上图片或视频。点发布链接，你不会发布成功，在 [w7corp/easywechat](https://github.com/w7corp/easywechat) 生成的日志（网站根目录/usr/plugins/Gzh2typecho/Server/logs/easywechat.log）可以找到微信拒绝你的IP
+
+8. 登录Typecho后台，到插件管理启用本插件，启用后在最右边操作列点击设置，对本插件进行配置：
     - 填写开发者ID和密码
       ![](https://gitee.com/sigool/sg-img-services01/raw/master/appid_explain.png)
       ![](https://gitee.com/sigool/sg-img-services01/raw/master/appsecret_explain.png)
@@ -64,11 +67,11 @@
       对应就是公众号后台这里，刚刚已经叫你偷偷记下来的了
       ![](https://gitee.com/sigool/sg-img-services01/raw/master/token_aeskey_where_show.png)
     - 这四个项是必须配置的，如果没填错的话，这里就已经成功99%了（【注：保存设置后，不要随意启用禁用本插件，因为你禁用再启用后填写的这些开发者ID，密码这些都会丢失的了，所以最好自己也备份一份。备份可以备份 根目录/usr/plugins/Gzh2typecho/Server/cfg.php 这个文件，因为保存设置会写出配置文件写出的就是这个】）
-   
-8. 配置用于发布文章的账号uid。你可以新建一个专门的账号用于本插件发布文章，当然也可以不配置，用默认的1
+    
+9. 配置用于发布文章的账号uid。你可以新建一个专门的账号用于本插件发布文章，当然也可以不配置，用默认的1
    ![](https://gitee.com/sigool/sg-img-services01/raw/master/where_setting_uid_for_pub_post.png)
    
-9. 到这里你已经完成环境搭建了
+10. 到这里你已经完成环境搭建了
 
 ## 测试及一些原理说明
 
@@ -102,6 +105,11 @@
     因为账号密码都是乱填的所以会登录失败（有一定几乎会登录成功！赶紧可以去买彩票了，你设定的这么巧），本插件监听了Typecho登录失败的事件，所以当登录失败后，我们比对了账号就是Gzh2typecho，密码就是有效的token这时候就自动登录成功了，然后响应结束不给继续走Typecho后面的老路了
   - 后面就是上传文章内容的媒体文件到附件（有的话），模拟填写各表单项和发布了
 
+## 常见问题
+1. 为什么文章内容使用图片或视频就不行？
+    - 检查是否在微信公众号后台正确配置了IP白名单
+    - 检查PHP是成功启用了fileinfo扩展
+    
 ## 鸣谢
 - [typecho](https://github.com/typecho/typecho)
 - [easywechat](https://github.com/w7corp/easywechat)
@@ -110,3 +118,4 @@
 ## ！打广告
 
 ![](https://gitee.com/sigool/sg-img-services01/raw/master/wechat.jpg)
+
