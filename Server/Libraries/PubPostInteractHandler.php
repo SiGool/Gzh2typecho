@@ -179,11 +179,11 @@ class PubPostInteractHandler implements EventHandlerInterface
 
         // 准备 图片或视频 内容模板
         $this->imgContentTpl = \App::getRawCfg('imgContentTpl');
-        strpos(self::MEDIA_CONTENT_REPLACE_WHO, $this->imgContentTpl) === false
+        strpos($this->imgContentTpl, self::MEDIA_CONTENT_REPLACE_WHO) === false
             && $this->imgContentTpl = '![](' . self::MEDIA_CONTENT_REPLACE_WHO . ')';
 
         $this->videoContentTpl = \App::getRawCfg('videoContentTpl');
-        strpos(self::MEDIA_CONTENT_REPLACE_WHO, $this->videoContentTpl) === false
+        strpos($this->videoContentTpl, self::MEDIA_CONTENT_REPLACE_WHO) === false
             && $this->videoContentTpl = '<video src="' . self::MEDIA_CONTENT_REPLACE_WHO . '" controls></video>';
 
         // 缓存内容MediaID
