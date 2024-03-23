@@ -1,0 +1,27 @@
+<?php
+/**由SiGool创建的程序生成*/
+return array (
+  'commcAllowOpenid' => '*',
+  'getMenuKeyWord' => '@菜单|>',
+  'menuSrc' => '',
+  'newArticleKeyWord' => '@新文章|>',
+  'setTitleKeyWord' => '@设标题|>',
+  'setContentKeyWord' => '@设内容|>',
+  'imgContentTpl' => '![](MEDIA_URL_REPLACE_FLAG)',
+  'videoContentTpl' => '<video src="MEDIA_URL_REPLACE_FLAG" controls></video>',
+  'setPubDateKeyWord' => '@设发布日期|>',
+  'setCategeoryKeyWord' => '@设分类|>',
+  'categeoryOptions' => '视频/测试2/测试咯',
+  'setLabelKeyWord' => '@设标签|>',
+  'setSecretLvKeyWord' => '@设公开度|>',
+  'defaultSecretLv' => '公开',
+  'setPrivCtrlKeyWord' => '@设权限控制|>',
+  'defaultPrivCtrl' => '1,1,1',
+  'setUsingNoticeKeyWord' => '@设引用通告|>',
+  'getPreviewKeyWord' => '@预览|>',
+  'PubPostKeyWord' => '@发布|>',
+  'mpDevAppID' => '',
+  'mpDevAppSecret' => '',
+  'mpDevToken' => '',
+  'mpDevEncodingAESKey' => '',
+);

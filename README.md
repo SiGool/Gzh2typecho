@@ -1,3 +1,4 @@
+0[
 # Gzh2typecho - 微信公众号对话发布typecho文章
 ## 特性
 - √ 微信公众号消息对话形式撰写文章
@@ -38,7 +39,8 @@
        ```
    - 方法二：解压本仓库的vendor.zip到网站根目录
 
-5. 试试HTTPS能成功访问公众号要配置的服务器地址(URL)了没有：
+5. 将 根目录/usr/plugins/Gzh2typecho/Server 文件夹下的cfg文件更名为cfg.php。
+   然后试试HTTPS能成功访问公众号要配置的服务器地址(URL)了没有：
    服务器地址(URL)为：cpolar公网地址/usr/plugins/Gzh2typecho/Server/server.php，
    比如我现在的是：https://282bdaf8.r12.cpolar.top/usr/plugins/Gzh2typecho/Server/server.php
    ![](https://gitee.com/sigool/sg-img-services01/raw/master/wx_web_url_ok.png)
