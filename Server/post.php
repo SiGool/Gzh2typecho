@@ -35,7 +35,7 @@ define('PARSE_ADD_POST_URL_BY_PATTERN', '/<form\s+?action\s*?=\s*?"(.+?)"/');
 /**/
 
 /** 提取 Typecho后台写文章脚本里附件上传提交的目标URL 需要用到的正则表达式  **/
-define('PARSE_UPLOAD_ATTACHMENT_URL_BY_PATTERN', "/browse_button\s*?:[\s\S]+?,[\s\S]*?url\s*?:[\s\S]*?'(.+?)'/");
+define('PARSE_UPLOAD_ATTACHMENT_URL_BY_PATTERN', "/browse_button[\s\S]+?url[^']+'([^']+)'/");
 /**/
 
 /** 提取 Typecho后台写文章脚本里出现的所有分类 需要用到的正则表达式  **/

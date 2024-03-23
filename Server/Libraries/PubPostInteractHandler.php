@@ -340,13 +340,25 @@ TXT;
         ];
 
         // 临时发布链接
-        $url = str_replace('\\', '/', str_replace(BASE_PATH, Helper::currentBaseUrl(), realpath(__DIR__ . '/../post.php')));
-        $url .= '?' . self::TOKEN_QY_STR_NAME_ON_PUB_LINK . '=' . ($token = str_random(32));
+
+        // 删除旧的发布token
+        $pubToken = \App::$cache->getItem($this->usr . '.draft.pub_token');
+        if ($pubToken->isHit())
+            \App::$cache->deleteItem($pubToken->get());
+
+        // 重新生成新的发布token
+        $token = str_random(32);
+        $pubToken->set($token);
+        \App::$cache->save($pubToken);
 
         $t = \App::$cache->getItem($token);
         $t->set($draft);
         $t->expiresAfter(self::PUB_LINK_VALID_SECONDS);
         \App::$cache->save($t);
+
+        // 返回临时链接
+        $url = str_replace('\\', '/', str_replace(BASE_PATH, Helper::currentBaseUrl(), realpath(__DIR__ . '/../post.php')));
+        $url .= '?' . self::TOKEN_QY_STR_NAME_ON_PUB_LINK . '=' . $token;
 
         return '临时发布地址：' . $url . ' ☜点击马上发布~';
     }

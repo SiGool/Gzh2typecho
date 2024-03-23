@@ -70,10 +70,13 @@
       ![](https://gitee.com/sigool/sg-img-services01/raw/master/token_aeskey_where_show.png)
     - 这四个项是必须配置的，如果没填错的话，这里就已经成功99%了（【注：保存设置后，不要随意启用禁用本插件，因为你禁用再启用后填写的这些开发者ID，密码这些都会丢失的了，所以最好自己也备份一份。备份可以备份 根目录/usr/plugins/Gzh2typecho/Server/cfg.php 这个文件，因为保存设置会写出配置文件写出的就是这个】）
     
-9. 配置用于发布文章的账号uid。你可以新建一个专门的账号用于本插件发布文章，当然也可以不配置，用默认的1
+9. 在Typecho后台的设置里允许上传的文件类型记得勾选上图片文件和多媒体文件否则文章内容无法使用图片或视频。
+   ![](https://gitee.com/sigool/sg-img-services01/raw/master/select_allow_upload_img_and_video_options.png)
+
+10. 配置用于发布文章的账号uid（看数据库里的后台用户表）。你可以新建一个专门的账号用于本插件发布文章，当然也可以不配置，用默认的1
    ![](https://gitee.com/sigool/sg-img-services01/raw/master/where_setting_uid_for_pub_post.png)
-   
-10. 到这里你已经完成环境搭建了
+    
+11. 到这里你已经完成环境搭建了
 
 ## 测试及一些原理说明
 
@@ -97,7 +100,7 @@
   ![](https://gitee.com/sigool/sg-img-services01/raw/master/after_enter_post_keyword.png)
   为什么要返回一个临时链接？这是什么？首先要明白，我这个插件站的立场是同时支持个人公众号即订阅号，而个人订阅号接口是很多限制的。比如没有客服接口。传统的公众号消息开发就是，用户发一条消息给公众号，公众号就可以回复一条消息这就叫被动回复。而主动回复的意思就是，用户没发消息来我公众号都可以主动发消息给他（当然这个客服接口也有一定限制，比如多少小时内用户发过消息给公众号之类）。
   还有一点就是被动回复消息有一个致命伤就是5秒内必须应答，比如用户说 @发布|> 这个消息后，我收到了，我5秒内没应答微信早就断开等待我的响应了（有客服接口就不一样，不等就不等吧，反正我可以主动上门再发条结果给你），所以我没法在通过微信服务器告诉用户是否发布成功了，5秒可以做什么？脱裤子都不够。所以我们返回一个临时链接代替，当用户自己点击链接后，就相当于自己提交新增文章表单了，同时页面可以显示结果。
-  临时链接都是固定地请求 根目录/usr/plugins/Gzh2typecho/Server/post.php 这个脚本，但是链接上的token这个query string不是固定的，它是一个随机的字符串，它指向了正在编辑地文章内容，token是有有效期的（所以说这个链接是临时的，默认10分钟内点击有效）
+  临时链接都是固定地请求 根目录/usr/plugins/Gzh2typecho/Server/post.php 这个脚本，但是链接上的token这个query string不是固定的，它是一个随机的字符串，它指向了正在编辑地文章内容，token是有有效期的（所以说这个链接是临时的，默认10分钟内点击有效，如果重新获取发布链接，旧的会失效）
   ![](https://gitee.com/sigool/sg-img-services01/raw/master/pub_link_valid_secs.png)
   
 - 点击临时链接，它做了啥子？
@@ -111,6 +114,9 @@
 1. 为什么文章内容使用图片或视频就不行？
     - 检查是否在微信公众号后台正确配置了IP白名单
     - 检查PHP是成功启用了fileinfo扩展
+    
+2. 为什么文章内容无法使用图片或者视频？出现“文章内容中的图片/视频上传到附件失败”类似的提示
+    - 检查Typecho后台设置里允许上传的文件类型是否配置正确了
     
 ## 鸣谢
 - [typecho](https://github.com/typecho/typecho)
